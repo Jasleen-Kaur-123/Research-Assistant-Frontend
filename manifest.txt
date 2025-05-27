@@ -1,0 +1,41 @@
+{
+    "manifest.version":3,
+    "name":"Research Assistant",
+    "version":"1.0",
+    "description":"AI - Powered Research Assistant",
+    "permissions":[
+        "activeTab", 
+        "storage",
+        "sidePanel",
+        "scripting"
+    ],
+    "action":{
+        "default_title":"Research Assistant" //This will default behaviour icon in the toolbar
+    },
+    "side_panel":{
+        "default_path":"sidepanel.html" 
+        //This will enabling to set up side panel which is secondary window that can  be slide in from side
+        //When side panel open it will load the sidepanel.html file
+        //Whatever file we will going to define in sidepanel.html will loaded as interface of sidepanel 
+    },
+    "background":{
+        "service_worker":"background.js"//This will run the bg handling task like EventListener and others
+    },
+    "host_permissions":[
+        "http:localhost:8088/*", 
+        //Need permission to interact with LocalHost.
+        //This is what will allowing extension to interact with; it can interact with anything on localhost8080 
+        // because this is where api is hosted
+        "<all_urls>" //interact with any other urls
+    ],
+    "content_security_policy":{
+        //extension pages 
+        //Here is security setting which is Chrome which sources our extension is allowed to load scripts and objects from 
+        //Here we want to restrict the extension to Load these only from its own files and we will making use of self
+        "extension_pages":"script-src 'self'; object-src 'self'"
+    }
+}
+//activeTab = permission/ let our extension to intract with user
+//storage = allow to store/save/ retrive data
+//sidePanel = This enables our extension to make use of special side panel interface
+//scripting = gives extension the ability to inject and run scripts in web pages 
